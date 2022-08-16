@@ -48,3 +48,19 @@ def test_load(tmp_path, document):
     assert parsed_document["Identifier"] == "European Union, Gazprom, Kremlin, Russia"
     assert len(parsed_document["Descriptor"]) == 4
     assert parsed_document["Publication"] == "Washington, DC Georgetown University"
+
+
+def test_parse(document):
+    parser = worldcat.Parser()
+    data = parser.parse(document)
+    assert len(data) == 1
+    parsed_document = data[0]
+    assert isinstance(parsed_document, dict)
+    assert (
+        parsed_document["Title"]
+        == "Gazprom: russia's nationalized political weapon and the implications for the european union"
+    )
+    assert parsed_document["Year"] == "2012"
+    assert parsed_document["Identifier"] == "European Union, Gazprom, Kremlin, Russia"
+    assert len(parsed_document["Descriptor"]) == 4
+    assert parsed_document["Publication"] == "Washington, DC Georgetown University"

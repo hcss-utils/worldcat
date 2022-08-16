@@ -26,6 +26,7 @@ class Parser:
     ):
         self.mapping = self.FIELDNAMES if mapping is None else mapping
         self.list_tags = self.FIELDNAMES_LIST if list_tags is None else list_tags
+        self.last_tag = None
 
     def parse(self, text: str) -> typing.List[JSON]:
         data = []
