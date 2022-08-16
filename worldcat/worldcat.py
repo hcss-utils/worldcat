@@ -1,4 +1,5 @@
 import collections
+import json
 import re
 import typing
 from pathlib import Path
@@ -101,3 +102,14 @@ def loads(
 ) -> typing.List[JSON]:
     parser = Parser(**kwargs) if implementation is None else implementation
     return parser.parse(text)
+
+
+def save(
+    data: typing.Union[JSON, typing.List[JSON]],
+    file: Path,
+    *,
+    encoding: str = "utf-8",
+    **kwargs,
+) -> None:
+    with file.open("w", encoding=encoding) as f:
+        json.dump(data, f, **kwargs)

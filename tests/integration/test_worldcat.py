@@ -50,6 +50,14 @@ def test_load(tmp_path, document):
     assert parsed_document["Publication"] == "Washington, DC Georgetown University"
 
 
+def test_save(document, tmp_path):
+    output_file = tmp_path / "parsed.json"
+    assert not output_file.exists()
+    data = worldcat.loads(document)
+    worldcat.save(data, output_file)
+    assert output_file.exists()
+
+
 def test_parse(document):
     parser = worldcat.Parser()
     data = parser.parse(document)
