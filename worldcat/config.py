@@ -33,3 +33,10 @@ DEFAULT_FIELDNAMES = [
     "Provider",
     "Database",
 ]
+
+DEFAULT_LIST_TAGS = [
+    "Access",
+    "Genre/Form",
+    "Geographic",
+    "Descriptor",
+]

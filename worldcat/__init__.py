@@ -1,3 +1,3 @@
-from .worldcat import Parser, load
+from .worldcat import Parser, load, loads
 
-__all__ = ["Parser", "load"]
+__all__ = ["Parser", "load", "loads"]
