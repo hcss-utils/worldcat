@@ -4,7 +4,7 @@ import re
 import typing
 from pathlib import Path
 
-from worldcat.config import DEFAULT_FIELDNAMES, DEFAULT_LIST_TAGS
+from .config import DEFAULT_FIELDNAMES, DEFAULT_LIST_TAGS
 
 JSON = typing.Dict[str, typing.Any]
 ParsedField = typing.Tuple[str, typing.Any]
