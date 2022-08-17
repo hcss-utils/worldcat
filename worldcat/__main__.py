@@ -1,3 +1,4 @@
+"""This module contains CLI entrypoint."""
 import typing
 import argparse
 from pathlib import Path
@@ -6,6 +7,7 @@ from .worldcat import load, save
 
 
 def read_folder(path: typing.Union[Path, str]) -> typing.Iterator[Path]:
+    """Reads folder yielding each file separately."""
     if isinstance(path, str):
         path = Path(path).resolve()
     for file in path.rglob("*.txt"):
@@ -13,6 +15,7 @@ def read_folder(path: typing.Union[Path, str]) -> typing.Iterator[Path]:
 
 
 def main() -> int:
+    """Worldcat's parser CLI."""
     parser = argparse.ArgumentParser(description="Parse database.")
     parser.add_argument("--path", help="path to directory with .txt files.")
     parser.add_argument("--output-file", help="path to output file.")

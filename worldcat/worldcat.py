@@ -1,3 +1,4 @@
+"""This module contains worldcat's export Parser."""
 import collections
 import json
 import re
@@ -11,6 +12,7 @@ ParsedField = typing.Tuple[str, typing.Any]
 
 
 class Parser:
+    """Worldcat's export parser."""
 
     DOCUMENT_SEPARATOR = "-" * 200
     NEWLINE = "\n"
@@ -30,6 +32,7 @@ class Parser:
         self.last_tag: typing.Optional[str] = None
 
     def parse(self, text: str) -> typing.List[JSON]:
+        """Parses .txt export into semi-structure format."""
         data = []
         documents = self._split_coprus(text)
         for document in documents:
@@ -39,9 +42,12 @@ class Parser:
         return data
 
     def _split_coprus(self, text: str) -> typing.List[str]:
+        """Splits corpus -- a collection of documents stored in one .txt file,
+        as a text delimited with special chars -- into a list of documents."""
         return re.split(self.DOCUMENT_SEPARATOR, text)
 
     def _parse_document(self, document: str) -> JSON:
+        """Parses a single document."""
         self.last_tag = None
         data = collections.defaultdict(list)
         for line in re.split(self.NEWLINE, document):
@@ -55,11 +61,13 @@ class Parser:
         return data
 
     def _parse_line(self, line: str) -> typing.Optional[ParsedField]:
+        """Parses a single line."""
         if re.match(self.NAMED_FIELD_PATTERN, line):
             return self._parse_named_field(line)
         return self._parse_anon_field(line)
 
     def _parse_named_field(self, line: str) -> typing.Optional[ParsedField]:
+        """Parses a single line that matches named field pattern."""
         key, value = line.split(self.NAMED_FIELD_SEPARATOR, maxsplit=1)
         field_name = key.strip()
         if field_name in self.mapping:
@@ -68,6 +76,7 @@ class Parser:
         return None
 
     def _parse_anon_field(self, line: str) -> typing.Optional[ParsedField]:
+        """Parses a single line that does not match a named field pattern."""
         if line == "":
             return None
         if self.last_tag is not None:
@@ -75,14 +84,27 @@ class Parser:
         return None
 
     def _preprocess(self, text: str) -> str:
+        """Preprocesses input text.
+
+        !todo: update preprocessing with additional steps
+        """
         return re.sub(r"\s+", " ", text).strip()
 
     def _flatten_fields(self, data: JSON, sep: str = " ") -> JSON:
+        """Flattens dict's values.
+
+        Notes
+        -----
+        Since worldcat's format contains multiline fields, we use defaultdict
+        by default, so that whenever we have multiline fields, we extend data
+        instead of replacing 'old' entries with the 'new' ones.
+        Then, depending on config, we flatten most of the fields.
+        """
         data_copy = data.copy()
-        for k, v in data_copy.items():
-            if k in self.list_tags:
+        for field_name, nested_values in data_copy.items():
+            if field_name in self.list_tags:
                 continue
-            data_copy[k] = sep.join(set(v))
+            data_copy[field_name] = sep.join(set(nested_values))
         return data_copy
 
 
@@ -93,6 +115,8 @@ def load(
     implementation: typing.Optional[Parser] = None,
     **kwargs: typing.Any,
 ) -> typing.List[JSON]:
+    """Loads a .txt file with exported documents and returns
+    processed documents in semi-structured format."""
     text = file.read_text(encoding=encoding)
     return loads(text, implementation=implementation, **kwargs)
 
@@ -100,6 +124,8 @@ def load(
 def loads(
     text: str, *, implementation: typing.Optional[Parser] = None, **kwargs: typing.Any
 ) -> typing.List[JSON]:
+    """Loads a string of documents and returns a processed documents
+    in semi-structured format."""
     parser = Parser(**kwargs) if implementation is None else implementation
     return parser.parse(text)
 
@@ -111,5 +137,6 @@ def save(
     encoding: str = "utf-8",
     **kwargs: typing.Any,
 ) -> None:
-    with file.open("w", encoding=encoding) as f:
-        json.dump(data, f, **kwargs)
+    """Saves processed documents to .json file."""
+    with file.open("w", encoding=encoding) as output_file:
+        json.dump(data, output_file, **kwargs)
