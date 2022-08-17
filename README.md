@@ -25,20 +25,6 @@ Running the tests requires to run the following command in the root folder (of c
 (venv-worldcat) > pytest
 ```
 
-If you use doctests in your docstrings (as `makepackage` assumes), you can run them using the following command (in the root folder):
-
-```shell
-(venv-worldcat) > python -m doctest worldcat/worldcat.py
-```
-
-In a similar way, you can run doctests from any other file that contains doctests.
-
-
-## Versioning
-
-Remember to update package version once a change is made to the package and the new version is pushed to the repository. Don't forget about releases, too.
-
-
 ## How to build a Python package?
 
 To build the package, you need to go to the root folder of the package and run the following command:
@@ -51,27 +37,10 @@ Note that this assumes you have `wheel` installed in your virtual environment, a
 
 The built package is now located in the dist/ folder.
 
+# Usage
 
-## Publishing your package in PyPi
+Refer to [`examples/run.py`](examples/run.py) or use CLI:
 
-If you want to publish it to [PyPi](https://pypi.org/), you need to install [twine](https://twine.readthedocs.io/en/latest/), create an account there, and run the following command (also in the package's root folder):
-
-```shell
-(venv-worldcat) > twine upload dist/*
-```
-
-Nonetheless, if you first want to check what it will look like in PyPi, you can first upload the package to [a test version of PyPi](https://test.pypi.org/), that is, 
-
-```shell
-twine upload -r testpypi dist/*
-```
-
-Check if everything is fine, and if so, you're ready to publish the package to PyPi.
-
-## Installation from PyPi
-
-If the package is in PyPi, you can install it from there like any other Python package, that is,
-
-```shell
-pip install 
+```console
+(venv-worldcat) > parse --help
 ```
