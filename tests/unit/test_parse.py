@@ -64,6 +64,11 @@ def test__preprocess(parser):
 
 def test__flatten_fields(parser, document):
     response = parser._parse_document(document)
+    assert response["Publication"] == ["Washington, DC Georgetown University"]
+    assert response["Year"] == ["2012"]
     flattened_response = parser._flatten_fields(response)
     assert flattened_response["Publication"] == "Washington, DC Georgetown University"
     assert flattened_response["Year"] == "2012"
+    # making sure that flattening doesn't change original data
+    assert response["Publication"] == ["Washington, DC Georgetown University"]
+    assert response["Year"] == ["2012"]
