@@ -27,7 +27,7 @@ class Parser:
     ):
         self.mapping = self.FIELDNAMES if mapping is None else mapping
         self.list_tags = self.FIELDNAMES_LIST if list_tags is None else list_tags
-        self.last_tag = None
+        self.last_tag: typing.Optional[str] = None
 
     def parse(self, text: str) -> typing.List[JSON]:
         data = []
@@ -46,7 +46,7 @@ class Parser:
         data = collections.defaultdict(list)
         for line in re.split(self.NEWLINE, document):
             if line.endswith(":"):
-                line = f"{line} "
+                line += " "
             parsed_line = self._parse_line(line)
             if parsed_line is None:
                 continue
