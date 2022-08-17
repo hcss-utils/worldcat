@@ -91,14 +91,14 @@ def load(
     *,
     encoding: typing.Optional[str] = None,
     implementation: typing.Optional[Parser] = None,
-    **kwargs,
+    **kwargs: typing.Any,
 ) -> typing.List[JSON]:
     text = file.read_text(encoding=encoding)
     return loads(text, implementation=implementation, **kwargs)
 
 
 def loads(
-    text: str, *, implementation: typing.Optional[Parser] = None, **kwargs
+    text: str, *, implementation: typing.Optional[Parser] = None, **kwargs: typing.Any
 ) -> typing.List[JSON]:
     parser = Parser(**kwargs) if implementation is None else implementation
     return parser.parse(text)
@@ -109,7 +109,7 @@ def save(
     file: Path,
     *,
     encoding: str = "utf-8",
-    **kwargs,
+    **kwargs: typing.Any,
 ) -> None:
     with file.open("w", encoding=encoding) as f:
         json.dump(data, f, **kwargs)

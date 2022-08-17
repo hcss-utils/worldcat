@@ -16,11 +16,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Parse database.")
     parser.add_argument("--path", help="path to directory with .txt files.")
     parser.add_argument("--output-file", help="path to output file.")
+    parser.add_argument("--encoding", default="utf-8", help="files encoding.")
     args = parser.parse_args()
 
     data = []
     for export in read_folder(args.path):
-        parsed = load(export, encoding="utf-8")
+        parsed = load(export, encoding=args.encoding)
         data.extend(parsed)
 
     save(data, Path(args.output_file).resolve())
