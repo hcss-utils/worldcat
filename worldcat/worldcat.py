@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """This module contains worldcat's export Parser."""
 import collections
 import json

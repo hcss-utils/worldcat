@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """This module contains default config bindings"""
 DEFAULT_FIELDNAMES = [
     "Abstract",
