@@ -8,7 +8,6 @@ Create a virtual environment, for example using `venv`:
 ```shell
 $ python -m venv venv-worldcat
 $ source venv-worldcat/bin/activate
-$ mkdir worldcat
 $ cd worldcat
 $ python -m pip install -e .[dev]
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import worldcat
 from pathlib import Path
+
+import worldcat
 
 
 def main() -> int:

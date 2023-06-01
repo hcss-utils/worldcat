@@ -70,4 +70,4 @@ Date of Entry:            20140103
 Update:                   20220404
 Accession No:             OCLC:                     867151160
 Provider:        OCLC
-Database:                 WorldCatDissertations"""
+Database:                 WorldCatDissertations"""  # noqa

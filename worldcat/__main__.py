@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """This module contains CLI entrypoint."""
-import typing
 import argparse
+import typing
 from pathlib import Path
 
 from .worldcat import load, save

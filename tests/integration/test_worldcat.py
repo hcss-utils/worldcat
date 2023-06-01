@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import pytest
+
 import worldcat
 
 
@@ -22,9 +23,9 @@ def test_loads(document):
     assert len(data) == 1
     parsed_document = data[0]
     assert isinstance(parsed_document, dict)
-    assert (
-        parsed_document["Title"]
-        == "Gazprom: russia's nationalized political weapon and the implications for the european union"
+    assert parsed_document["Title"] == (
+        "Gazprom: russia's nationalized political weapon "
+        "and the implications for the european union"
     )
     assert parsed_document["Year"] == "2012"
     assert parsed_document["Identifier"] == "European Union, Gazprom, Kremlin, Russia"
@@ -41,9 +42,9 @@ def test_load(tmp_path, document):
     assert len(data) == 1
     parsed_document = data[0]
     assert isinstance(parsed_document, dict)
-    assert (
-        parsed_document["Title"]
-        == "Gazprom: russia's nationalized political weapon and the implications for the european union"
+    assert parsed_document["Title"] == (
+        "Gazprom: russia's nationalized political weapon "
+        "and the implications for the european union"
     )
     assert parsed_document["Year"] == "2012"
     assert parsed_document["Identifier"] == "European Union, Gazprom, Kremlin, Russia"
@@ -65,9 +66,9 @@ def test_parse(document):
     assert len(data) == 1
     parsed_document = data[0]
     assert isinstance(parsed_document, dict)
-    assert (
-        parsed_document["Title"]
-        == "Gazprom: russia's nationalized political weapon and the implications for the european union"
+    assert parsed_document["Title"] == (
+        "Gazprom: russia's nationalized political weapon "
+        "and the implications for the european union"
     )
     assert parsed_document["Year"] == "2012"
     assert parsed_document["Identifier"] == "European Union, Gazprom, Kremlin, Russia"
